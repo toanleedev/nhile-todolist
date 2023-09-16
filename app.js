@@ -113,7 +113,7 @@ newForm.addEventListener('submit', (e) => {
   e.preventDefault()
   const dataStoreTodos = getTodosStorage();
   let formData = Object.fromEntries(new FormData(e.target));
-  if (formData.title.length !== 0) {
+  if (formData.title.trim().length !== 0) {
     Object.assign(formData, {
       id: generateUid(),
       created_at: Date.now(),
@@ -169,7 +169,7 @@ function handleChangeStatus(object) {
     let currentIndex = dataStoreTodos.findIndex(e => e.id === newTodo.id)
     dataStoreTodos[currentIndex] = newTodo
     localStorage.setItem('data-todos', JSON.stringify(dataStoreTodos))
-    if (object.value !== STATUS.completed) {
+    if (document.querySelector('.filter-select').value === 'todos' && object.value !== STATUS.completed) {
       targetTodoItem.insertAdjacentHTML('beforebegin', todoItemElement(newTodo));
     }
     targetTodoItem.remove();
